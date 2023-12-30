@@ -82,16 +82,17 @@ contacts_schema = ContactSchema(many=True)
 class Plant(db.Model):
     id = db.Column(db.String, primary_key = True)
     common_name = db.Column(db.String(250), nullable = False)
-    scientific_name = db.Column(db.String(250), nullable = False)
+    scientific_name = db.Column(db.String(250))
     days_to_harvest = db.Column(db.String(50))
     sowing = db.Column(db.String(300))
     light = db.Column(db.String(300))
     row_spacing = db.Column(db.String(50))
     minimum_root_depth = db.Column(db.String(50))
     soil_nutriments = db.Column(db.String(300))
+    when_to_plant = db.Column(db.String(300))
     user_token = db.Column(db.String, db.ForeignKey('user.token'), nullable = False)
 
-    def __init__(self,common_name,scientific_name,days_to_harvest,sowing,light,row_spacing,minimum_root_depth,soil_nutriments,user_token, id = ''):
+    def __init__(self,common_name,scientific_name,days_to_harvest,sowing,light,row_spacing,minimum_root_depth,soil_nutriments,when_to_plant,user_token, id = ''):
         self.id = self.set_id()
         self.common_name = common_name
         self.scientific_name = scientific_name
@@ -101,6 +102,7 @@ class Plant(db.Model):
         self.row_spacing = row_spacing
         self.minimum_root_depth = minimum_root_depth
         self.soil_nutriments = soil_nutriments
+        self.when_to_plant = when_to_plant
         self.user_token = user_token
 
 
@@ -112,7 +114,7 @@ class Plant(db.Model):
 
 class PlantSchema(ma.Schema):
     class Meta:
-        fields = ['id', 'common_name', 'scientific_name','days_to_harvest','sowing', 'light', 'row_spacing', 'minimum_root_depth', 'soil_nutriments']
+        fields = ['id', 'common_name', 'scientific_name','days_to_harvest','sowing', 'light', 'row_spacing', 'minimum_root_depth', 'soil_nutriments', 'when_to_plant']
 
 plant_schema = PlantSchema()
 plants_schema = PlantSchema(many=True)

@@ -81,11 +81,12 @@ def create_plant(current_user_token):
         row_spacing = plant_data['row_spacing']
         minimum_root_depth = plant_data['minimum_root_depth']
         soil_nutriments = plant_data['soil_nutriments']
+        when_to_plant = plant_data['when_to_plant']
         user_token = current_user_token.token
 
         print(f'BIG TESTER: {current_user_token.token}')
 
-        plant = Plant(common_name, scientific_name, days_to_harvest, sowing, light, row_spacing, minimum_root_depth, soil_nutriments, user_token=user_token)
+        plant = Plant(common_name, scientific_name, days_to_harvest, sowing, light, row_spacing, minimum_root_depth, soil_nutriments, when_to_plant, user_token=user_token)
 
         db.session.add(plant)
         db.session.commit()
@@ -124,6 +125,7 @@ def update_plant(current_user_token,id):
     plant.row_spacing= request.json['row_spacing']
     plant.minimum_root_depth = request.json['minimum_root_depth']
     plant.soil_nutriments = request.json['soil_nutriments']
+    plant.when_to_plant = request.json['when_to_plant']
     plant.user_token = current_user_token.token
 
     db.session.commit()
